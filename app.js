@@ -7,10 +7,9 @@ import connectToDatabase from "./database/mongodb.js";
 import errorMiddleware from "./middlewares/error.middelware.js";
 import cookieParser from "cookie-parser";
 import cors from "cors"; 
+import arcjetMiddleware from "./middlewares/arcject.middleware.js";
 
 const app = express();
-
-// ✅ Enable CORS for Frontend
 app.use(cors({
     origin: "http://localhost:5173",
     credentials: true,
@@ -21,6 +20,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(arcjetMiddleware)
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);

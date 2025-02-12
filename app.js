@@ -31,8 +31,6 @@ app.use(errorMiddleware);
 app.get("/", (req, res) => {
     res.send("Hello world");
 });
-
-// Start Server
 app.listen(PORT, async () => {
     console.log(`🚀 Server running at http://localhost:${PORT}`);
     await connectToDatabase();

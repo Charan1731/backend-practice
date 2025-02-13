@@ -10,7 +10,5 @@ subscriptionRouter.post("/" ,authorize, createSubscription)
 subscriptionRouter.put("/:id" , authorize, editSubscription)
 subscriptionRouter.delete("/:id" ,authorize, deleteSubscription)
 subscriptionRouter.get("/user/:id" ,authorize, getSubscriptions )
-subscriptionRouter.put("/:id/cancel" , (req,res) => { res.send({title:"Cancel subsctiption"})})
-subscriptionRouter.get("/upcomin-renewals" , (req,res) => { res.send({title:"Get upcoming renewals"})})
 
 export default subscriptionRouter

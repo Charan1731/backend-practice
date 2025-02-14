@@ -8,11 +8,10 @@ import errorMiddleware from "./middlewares/error.middelware.js";
 import cookieParser from "cookie-parser";
 import cors from "cors"; 
 import arcjetMiddleware from "./middlewares/arcject.middleware.js";
-import { VITE_API_URL } from "./config/env.js";
 
 const app = express();
 app.use(cors({
-    origin: VITE_API_URL,
+    origin: "https://budget-box-rose.vercel.app/",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],

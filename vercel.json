@@ -9,7 +9,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "app.js"
+      "dest": "/app.js"
     }
   ],
   "headers": [
@@ -18,7 +18,7 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://budget-box-theta.vercel.app" 
+          "value": "https://budget-box-theta.vercel.app"
         },
         {
           "key": "Access-Control-Allow-Methods",
@@ -26,11 +26,11 @@
         },
         {
           "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type, Authorization"
+          "value": "X-Requested-With, Content-Type, Authorization"
         },
         {
           "key": "Access-Control-Allow-Credentials",
-          "value": "true" 
+          "value": "true"
         }
       ]
     }

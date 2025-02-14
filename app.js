@@ -11,7 +11,7 @@ import arcjetMiddleware from "./middlewares/arcject.middleware.js";
 const app = express();
 
 app.use(cors({
-    origin: "https://budget-box-rose.vercel.app",
+    origin: "https://budget-box-theta.vercel.app",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],

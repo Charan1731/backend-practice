@@ -11,32 +11,12 @@ import arcjetMiddleware from "./middlewares/arcject.middleware.js";
 const app = express();
 
 // CORS configuration
-const allowedOrigins = [
-    "https://budget-box-theta.vercel.app",
-    "http://localhost:5173"
-];
+const allowedOrigins = ['https://budget-box-theta.vercel.app'];
 
 app.use(cors({
-    origin: function(origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        
-        if (allowedOrigins.indexOf(origin) === -1) {
-            return callback(new Error('CORS not allowed'), false);
-        }
-        return callback(null, true);
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: [
-        "Content-Type", 
-        "Authorization",
-        "X-Requested-With",
-        "Access-Control-Allow-Credentials",
-        "Access-Control-Allow-Origin"
-    ],
-    exposedHeaders: ["Set-Cookie"],
-    maxAge: 86400 // CORS preflight cache for 24 hours
+    origin: allowedOrigins,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true // if you need to include cookies in requests
 }));
 
 // Security headers middleware
@@ -62,6 +42,7 @@ app.get("/", (req, res) => {
     });
 });
 
+app.options('*', cors());
 // API routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
@@ -77,6 +58,8 @@ app.use((req, res, next) => {
 
 // Error handling
 app.use(errorMiddleware);
+
+// Preflight requests
 
 const PORT = process.env.PORT || 5000;
 

@@ -11,7 +11,7 @@ import arcjetMiddleware from "./middlewares/arcject.middleware.js";
 const app = express();
 
 // CORS configuration
-const allowedOrigins = ['https://budget-box-theta.vercel.app'];
+const allowedOrigins = ['http://localhost:5173'];
 
 app.use(cors({
     origin: allowedOrigins,

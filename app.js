@@ -7,6 +7,7 @@ import errorMiddleware from "./middlewares/error.middelware.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import arcjetMiddleware from "./middlewares/arcject.middleware.js";
+import workflowRouter from "./routes/workflow.routes.js";
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.options('*', cors());
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/subscriptions", subscriptionRouter);
+app.use("/api/v1/workflows", workflowRouter);
 
 // 404 handler
 app.use((req, res, next) => {

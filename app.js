@@ -17,7 +17,7 @@ const allowedOrigins = ['https://budget-box-theta.vercel.app'];
 app.use(cors({
     origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true // if you need to include cookies in requests
+    credentials: true
 }));
 
 // Security headers middleware

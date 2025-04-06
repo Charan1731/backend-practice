@@ -22,20 +22,38 @@ export const sendReminders = serve(async (context) => {
 
   for (const daysBefore of REMINDERS) {
     const reminderDate = renewalDate.subtract(daysBefore, 'day');
+    const reminderLabel = `${daysBefore} days before reminder`;
 
     if(reminderDate.isAfter(dayjs())) {
-      await sleepUntilReminder(context, `Reminder ${daysBefore} days before`, reminderDate);
+      await sleepUntilReminder(context, reminderLabel, reminderDate);
     }
 
     if (dayjs().isSame(reminderDate, 'day')) {
-      await triggerReminder(context, `${daysBefore} days before reminder`, subscription);
+      await triggerReminder(context, reminderLabel, subscription);
     }
   }
 });
 
 const fetchSubscription = async (context, subscriptionId) => {
   return await context.run('get subscription', async () => {
-    return Subscription.findById(subscriptionId).populate('user', 'name email');
+    try {
+      const subscription = await Subscription.findById(subscriptionId).populate('user', 'name email');
+      
+      if (!subscription) {
+        console.error(`Subscription not found: ${subscriptionId}`);
+        return null;
+      }
+      
+      if (!subscription.user || !subscription.user.email) {
+        console.error(`User or user email not found for subscription: ${subscriptionId}`);
+        return null;
+      }
+      
+      return subscription;
+    } catch (error) {
+      console.error(`Error fetching subscription ${subscriptionId}:`, error);
+      return null;
+    }
   })
 }
 
@@ -48,10 +66,16 @@ const triggerReminder = async (context, label, subscription) => {
   return await context.run(label, async () => {
     console.log(`Triggering ${label} reminder`);
 
-    await sendReminderEmail({
-      to: subscription.user.email,
-      type: label,
-      subscription,
-    })
+    try {
+      await sendReminderEmail({
+        to: subscription.user.email,
+        type: label,
+        subscription,
+      });
+      console.log(`Successfully sent ${label} reminder email to ${subscription.user.email}`);
+    } catch (error) {
+      console.error(`Failed to send ${label} reminder email:`, error);
+      throw error; // Rethrow to let the workflow system know about the failure
+    }
   })
 }

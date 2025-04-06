@@ -35,7 +35,7 @@ export const generateEmailTemplate = ({
                       </tr>
                       <tr>
                           <td style="font-size: 16px;">
-                              <strong>Payment Method:</strong> ${paymentMethod}
+                              <strong>Payment Method:</strong> ${paymentMethod || 'Not specified'}
                           </td>
                       </tr>
                   </table>

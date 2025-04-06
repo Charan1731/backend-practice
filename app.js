@@ -12,7 +12,7 @@ import workflowRouter from "./routes/workflow.routes.js";
 const app = express();
 
 // CORS configuration
-const allowedOrigins = ['https://budget-box-theta.vercel.app'];
+const allowedOrigins = ['https://budget-box-theta.vercel.app', 'http://localhost:5173'];
 
 app.use(cors({
     origin: allowedOrigins,

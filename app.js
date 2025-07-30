@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import express from "express";
 import userRouter from "./routes/user.routes.js";
 import subscriptionRouter from "./routes/subscription.routes.js";
@@ -39,6 +40,7 @@ app.get("/", (req, res) => {
     res.json({ 
         status: "ok", 
         message: "Server is running",
+        // eslint-disable-next-line no-undef
         environment: process.env.NODE_ENV
     });
 });
@@ -51,17 +53,19 @@ app.use("/api/v1/subscriptions", subscriptionRouter);
 app.use("/api/v1/workflows", workflowRouter);
 
 // 404 handler
-app.use((req, res, next) => {
+app.use((req, res) => {
     res.status(404).json({
         status: "error",
         message: "Route not found"
     });
 });
 
-// Error handling
 app.use(errorMiddleware);
 
-// Preflight requests
+app.get('/', (req,res) => {
+    res.send("Hello world")
+})
+
 
 const PORT = process.env.PORT || 5000;
 

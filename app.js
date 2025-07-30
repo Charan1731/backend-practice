@@ -35,16 +35,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(arcjetMiddleware);
 
-// Health check route
-app.get("/", (req, res) => {
-    res.json({ 
-        status: "ok", 
-        message: "Server is running",
-        // eslint-disable-next-line no-undef
-        environment: process.env.NODE_ENV
-    });
-});
-
 app.options('*', cors());
 // API routes
 app.use("/api/v1/auth", authRouter);
@@ -52,13 +42,6 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/subscriptions", subscriptionRouter);
 app.use("/api/v1/workflows", workflowRouter);
 
-// 404 handler
-app.use((req, res) => {
-    res.status(404).json({
-        status: "error",
-        message: "Route not found"
-    });
-});
 
 app.use(errorMiddleware);
 
